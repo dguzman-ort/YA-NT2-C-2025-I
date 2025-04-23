@@ -24,3 +24,4 @@ Para iniciar el proyecto vamos crearnos una cuenta en github. A continuacion la 
 
 - Daniel Guzman, dguzman-ort
 - Julian Gonzalez Chiquirrin, juliangch
+- Ivan Schutt - ivan-schutt
