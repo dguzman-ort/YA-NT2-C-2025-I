@@ -25,3 +25,4 @@ Para iniciar el proyecto vamos crearnos una cuenta en github. A continuacion la 
 - Daniel Guzman, dguzman-ort
 - Luis Augusto Choque Mamani, luisChoque94
 - Julian Gonzalez Chiquirrin, juliangch
+- Luis Alberto Acosta, luisacosta121
