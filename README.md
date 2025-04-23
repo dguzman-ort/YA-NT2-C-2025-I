@@ -1,4 +1,4 @@
-# BE-NT2-C-2024-I
+# YA-NT2-C-2025-I
 
 Repositorio de la clase de NT2 C para la clase 2025-I
 
