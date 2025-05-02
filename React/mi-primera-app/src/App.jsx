@@ -6,7 +6,15 @@ import './App.css'
 import Saludo from './components/Saludo'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const [nombre, setNombre] = useState("Susana")
+  let nombre2 = "Susana"
+  const cambiarNombre = (nuevoNombre) => {
+    console.log("nombre original", nombre)
+    setNombre(nuevoNombre)
+    console.log("nombre nuevo", nombre)
+  }
+  // const nombre = 'Susana'
 
   return (
     <>
@@ -18,14 +26,10 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <Saludo />
-      <Saludo />
-      <Saludo />
-      <Saludo />
-      <Saludo />
-      <Saludo />
-      <Saludo />
-      <Saludo />
+      <Saludo />      
+      <Saludo nombre={nombre} elemento='h1'/>
+      <Saludo nombre={nombre} elemento='h2'/>
+      <button onClick={() => setNombre(prompt("Cual es tu nombre?"))}>Cambiar nombre</button>
       <div className="card">
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
