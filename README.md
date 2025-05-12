@@ -23,5 +23,6 @@ Para iniciar el proyecto vamos crearnos una cuenta en github. A continuacion la 
 # Listado de participantes
 
 - Daniel Guzman, dguzman-ort
-- Luis Augusto Choque Mamani, luisChoque94
-- Julian Gonzalez Chiquirrin, juliangch
+- Axel Julián Dumas Cutuli, Hareyuk
+- Andrea Massun Sovic, PrintAndrea
+- Martin Palma Sabino, Martinspalma
