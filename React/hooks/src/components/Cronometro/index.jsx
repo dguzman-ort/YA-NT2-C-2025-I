@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+import { useIniciado } from "../../hooks/useIniciado"
 
 let intervalID
 
-export default ({estaIniciado}) => {
+export default () => {
+  const { estaIniciado } = useIniciado()
   const [count, setCount] = useState(0)
-
 
   useEffect(() => {
     console.log("Detecto el cambio del prop", estaIniciado)
