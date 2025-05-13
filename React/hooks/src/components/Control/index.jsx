@@ -1,13 +1,13 @@
 import { useIniciado } from "../../hooks/useIniciado"
 
 export default function Control() {
-    const { estaIniciado, toggleIniciado } = useIniciado()
+    const { estaIniciado, toggleIniciado, toggleReiniciar } = useIniciado()
     return(
       <div className="card">
       <button onClick={() => toggleIniciado()}>{
         estaIniciado? 'Pausar': 'Iniciar'
       }</button>
-      <button>Reiniciar</button>
+      <button onClick={() => toggleReiniciar()}>Reiniciar</button>
     </div>        
     )
 }

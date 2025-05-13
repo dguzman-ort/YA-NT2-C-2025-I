@@ -4,7 +4,7 @@ import { useIniciado } from "../../hooks/useIniciado"
 let intervalID
 
 export default () => {
-  const { estaIniciado } = useIniciado()
+  const { estaIniciado, reiniciar } = useIniciado()
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -30,6 +30,13 @@ export default () => {
   
     // 
   }, [estaIniciado])
+
+  useEffect(() => {
+    if (reiniciar) {
+      console.log("Reiniciar contador")
+      setCount(0)
+    }
+  }, [reiniciar])
 
   return (
     <div><h1>{count}</h1></div>

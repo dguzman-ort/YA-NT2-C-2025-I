@@ -4,10 +4,18 @@ const IniciadoContext = createContext(false)
 
 export function IniciadoProvider({ children }) {
   const [estaIniciado, setEstaIniciado] = useState(false)
+  const [reiniciar, setReiniciar] = useState(false)
 
   const toggleIniciado = () => setEstaIniciado((prev) => !prev)
+  const toggleReiniciar = () => {
+    setReiniciar(true)
+    setEstaIniciado(false)
+    setTimeout(() => {
+      setReiniciar(false)
+    })
+  }
   return(
-    <IniciadoContext.Provider value={{ estaIniciado, toggleIniciado }}>
+    <IniciadoContext.Provider value={{ estaIniciado, toggleIniciado, reiniciar, toggleReiniciar }}>
       { children }
     </IniciadoContext.Provider>
   )
