@@ -1,58 +1,57 @@
 import { View, Text } from "react-native";
 import styles from "./styles";
 import constants from "./constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCronometro } from "../../hooks/useCronometro";
 import { vibrate } from "../../utils";
 const minToSec = (min) => min * 60;
 const paddZero = num => num < 10 ? `0${num}` : num;
 
-let interval;
-
 export default function Cronometro() {
 
   const { isRunning, isWorking, setIsWorking, shouldReset } = useCronometro();
+  const intervalRef = useRef(null);
 
-    const [remainingTime, setRemainingTime] = useState(minToSec(constants.WORKING_TIME));
+  const [remainingTime, setRemainingTime] = useState(minToSec(constants.WORKING_TIME));
 
-    useEffect(() => {
-      if (isRunning) {
-        interval = setInterval(() => {
-          setRemainingTime(prev => prev - 1);
-        }, 1000)        
-      }else{
-        clearInterval(interval);
-      }
-    },[isRunning])
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(() => {
+        setRemainingTime(prev => prev - 1);
+      }, 1000)
+    } else {
+      clearInterval(intervalRef.current);
+    }
+  }, [isRunning])
 
-    useEffect(() => {
-      if (remainingTime === 0) {
-        vibrate();
-        console.log("vibrate!!!!!!");
-        
-        setRemainingTime(minToSec(isWorking ? constants.RESTING_TIME : constants.WORKING_TIME));
-        setIsWorking(prev => !prev);
+  useEffect(() => {
+    if (remainingTime === 0) {
+      vibrate();
+      console.log("vibrate!!!!!!");
 
-
-      }
-    },[remainingTime])
+      setRemainingTime(minToSec(isWorking ? constants.RESTING_TIME : constants.WORKING_TIME));
+      setIsWorking(prev => !prev);
 
 
-    useEffect(() => {
-      console.log("shouldReset", shouldReset);
-      if (shouldReset) {
-        setRemainingTime(minToSec(isWorking ? constants.WORKING_TIME : constants.RESTING_TIME));
-      }
-    },[shouldReset])
+    }
+  }, [remainingTime])
 
 
-    const mins = Math.floor(remainingTime / 60);
-    const secs = Math.floor(remainingTime % 60);
+  useEffect(() => {
+    console.log("shouldReset", shouldReset);
+    if (shouldReset) {
+      setRemainingTime(minToSec(isWorking ? constants.WORKING_TIME : constants.RESTING_TIME));
+    }
+  }, [shouldReset])
 
 
-    return (
-      <View>
-        <Text style={styles.time}>{paddZero(mins)}:{paddZero(secs)}</Text>
-      </View>
-    )
+  const mins = Math.floor(remainingTime / 60);
+  const secs = Math.floor(remainingTime % 60);
+
+
+  return (
+    <View>
+      <Text style={styles.time}>{paddZero(mins)}:{paddZero(secs)}</Text>
+    </View>
+  )
 }
