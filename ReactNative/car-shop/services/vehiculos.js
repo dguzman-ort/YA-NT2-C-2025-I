@@ -46,6 +46,7 @@ const getVehiculos = () => {
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      console.log("vehiculos", vehiculos);
       resolve(
         vehiculos
       );
@@ -53,6 +54,26 @@ const getVehiculos = () => {
   });
 }
 
+const getVehiculoById = (id) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const vehiculo = vehiculos.find(vehiculo => vehiculo.id === id);
+      resolve(vehiculo);
+    }, 1000);
+  });
+}
+
+const updateVehiculo = (vehiculo) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      //TODO: Revisar el metodo de actualizacion porque NO lo esta realizando correctamente.
+      const index = vehiculos.findIndex(v => v.id === vehiculo.id);
+      vehiculos[index] = vehiculo;
+      
+      resolve(vehiculo);
+    }, 1000); 
+  });
+}
 
 const saveVehiculo = (vehiculo) => {
 
@@ -69,6 +90,8 @@ const saveVehiculo = (vehiculo) => {
 export { 
   getVehiculos, 
   saveVehiculo, 
-  DEFAULT_URL_IMAGEN 
+  DEFAULT_URL_IMAGEN,
+  getVehiculoById,
+  updateVehiculo
 };
 

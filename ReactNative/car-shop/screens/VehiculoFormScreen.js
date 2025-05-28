@@ -1,14 +1,19 @@
 import { View, Text, TextInput, Button, StyleSheet, SafeAreaView, Alert, KeyboardAvoidingView } from "react-native";
 import { Input } from '@rneui/themed';
-import { DEFAULT_URL_IMAGEN, saveVehiculo } from '../services/vehiculos';
+import { DEFAULT_URL_IMAGEN, saveVehiculo, updateVehiculo, getVehiculoById } from '../services/vehiculos';
 import { useState, useEffect } from "react";
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const { id } = route.params || {};
+  console.log("id", id);
 
   const [vehiculo, setVehiculo] = useState({
     marca: '',
     modelo: '',
-    precio: '',
+    precio: '10000',
     anio: '',
     urlImagen: DEFAULT_URL_IMAGEN,
   });
@@ -18,6 +23,18 @@ export default () => {
   //   console.log("Aqui valido la marca", vehiculo.marca);
   // }, [vehiculo.marca]);
 
+  
+  useEffect(() => {
+    if (id){
+      getVehiculoById(id).then((vehiculo) => {
+        console.log("vehiculo encontrado", vehiculo);
+        setVehiculo(vehiculo);
+      }).catch((error) => {
+        console.log("Error al obtener el vehiculo", error);
+      });
+    }
+  }, [id])
+  
   const handleInputChange = (name, value) => {
     setVehiculo({ ...vehiculo, [name]: value });
     setFormError({ ...formError, [name]: false });
@@ -37,13 +54,23 @@ export default () => {
       return;
     }
 
-    //TODO: Guardar el vehiculo
-    console.log("Guardando el vehiculo", vehiculo);
-    saveVehiculo(vehiculo).then((vehiculo) => {
-      console.log("Vehiculo guardado", vehiculo);
-    }).catch((error) => {
-      console.log("Error al guardar el vehiculo", error);
-    });
+
+    const esNuevoVehiculo = !id;
+    if (esNuevoVehiculo){
+      saveVehiculo(vehiculo).then((vehiculo) => {
+        console.log("vehiculo guardado", vehiculo);
+        navigation.goBack();
+      }).catch((error) => {
+        console.log("Error al guardar el vehiculo", error);
+      });
+    } else {
+      updateVehiculo(vehiculo).then((vehiculo) => {
+        console.log("vehiculo actualizado", vehiculo);
+        navigation.goBack();
+      }).catch((error) => {
+        console.log("Error al actualizar el vehiculo", error);
+      });
+    }
   }
 
   return (
@@ -68,19 +95,22 @@ export default () => {
           placeholder="Precio"
           keyboardType={'decimal-pad'}
           style={styles.input}
-          value={vehiculo.precio}
+          value={vehiculo.precio.toString()}
           onChangeText={(text) => handleInputChange('precio', text)}
           errorMessage={formError?.precio ? 'El precio es requerido' : ''}
         />
         <Input
           placeholder="Año"
           inputStyle={{ fontWeight: 'bold' }}
-          value={vehiculo.anio}
+          value={vehiculo.anio.toString()}
           onChangeText={(text) => handleInputChange('anio', text)}
           errorMessage={formError?.anio ? 'El año es requerido' : ''}
         />        
         {/* <Input placeholder="URL de la imagen" style={styles.input} value={vehiculo.urlImagen} onChangeText={(text) => handleInputChange('urlImagen', text)} />   */}
-        <Button title="Guardar" onPress={handleSubmit} />
+        <View style={styles.buttonContainer}>
+          <Button title="Cancelar" onPress={() => navigation.goBack()} /> 
+          <Button title="Guardar" onPress={handleSubmit} />
+        </View>
     </View>
 
 
@@ -102,6 +132,10 @@ const styles = StyleSheet.create({
   },
   form: {
     padding: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',    
   }
 
 });
