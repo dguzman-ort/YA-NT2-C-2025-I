@@ -3,30 +3,27 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Vehiculo from './components/Vehiculo';
 import { VehiculosProvider } from './hooks/useVehiculos';
 import ListadoVehiculos from './screens/ListadoVehiculos';
+import VehiculoFormScreen from './screens/VehiculoFormScreen';
+
+// import Constants from 'expo-constants';
+
 export default function App() {
 
 
   return (
-    <VehiculosProvider>
-      <View style={styles.container}>
-        <ListadoVehiculos />
-        <StatusBar style="auto" />
-      </View>
-    </VehiculosProvider>
-      
-
-
-
-
-
+      <VehiculosProvider>
+          <SafeAreaView style={styles.container}>
+            <ListadoVehiculos />
+            {/* <VehiculoFormScreen /> */}
+          </SafeAreaView>
+      </VehiculosProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    justifyContent: 'center',
+    // marginTop: Constants.statusBarHeight,
   },
 });
+

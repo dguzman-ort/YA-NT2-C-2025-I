@@ -9,7 +9,7 @@ export function VehiculosProvider({ children }) {
   
   useEffect(() => {
     getVehiculos().then((vehiculos) => {
-      // console.log(vehiculos.length, vehiculos);
+      console.log(vehiculos.length, vehiculos);
       setVehiculos(vehiculos);
     });
   }, []);

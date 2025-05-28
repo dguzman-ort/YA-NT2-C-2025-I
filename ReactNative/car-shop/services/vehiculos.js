@@ -1,4 +1,5 @@
-const MAX_VEHICULOS = 100000;
+const MAX_VEHICULOS = 20;
+const DEFAULT_URL_IMAGEN = 'https://img.freepik.com/vector-gratis/modern-urban-adventure-suv-vehicle-illustration_1344-200.jpg';
 
 const marcas = ['Toyota', 'Ford', 'Chevrolet'];
 
@@ -27,27 +28,47 @@ const generarVehiculo = () => {
     const modelo = generarModelo(marca);
     const precio = random(10000, 100000);
     const anio = generarAnio();
-    const urlImagen = `https://img.freepik.com/vector-gratis/modern-urban-adventure-suv-vehicle-illustration_1344-200.jpg`;
+    const urlImagen = DEFAULT_URL_IMAGEN;
 
     return { marca, modelo, precio, anio, urlImagen };
 }
 
 
+const vehiculos = Array.from({ length: MAX_VEHICULOS }, generarVehiculo).map((vehiculo, index) => ({
+  ...vehiculo,
+  id: index
+}))
 
 const getVehiculos = () => {
   // Simular una llamada a una API
+
+
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(
-        Array.from({ length: MAX_VEHICULOS }, generarVehiculo).map((vehiculo, index) => ({
-          ...vehiculo,
-          id: index
-        }))
+        vehiculos
       );
     }, 1000);
   });
 }
 
 
-export { getVehiculos };
+const saveVehiculo = (vehiculo) => {
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const newVehiculo = { ...vehiculo, id: vehiculos.length + 1 };
+      vehiculos.push(newVehiculo);
+      resolve(newVehiculo);
+    }, 1000);
+  });
+}
+
+
+export { 
+  getVehiculos, 
+  saveVehiculo, 
+  DEFAULT_URL_IMAGEN 
+};
 
