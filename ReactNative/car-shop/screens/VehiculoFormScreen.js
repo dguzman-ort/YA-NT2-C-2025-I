@@ -8,12 +8,12 @@ export default () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params || {};
-  console.log("id", id);
+  //console.log("id", id);
 
   const [vehiculo, setVehiculo] = useState({
     marca: '',
     modelo: '',
-    precio: '10000',
+    precio: '',
     anio: '',
     urlImagen: DEFAULT_URL_IMAGEN,
   });
@@ -66,6 +66,7 @@ export default () => {
     } else {
       updateVehiculo(vehiculo).then((vehiculo) => {
         console.log("vehiculo actualizado", vehiculo);
+        // update del estado de vehiculos
         navigation.goBack();
       }).catch((error) => {
         console.log("Error al actualizar el vehiculo", error);

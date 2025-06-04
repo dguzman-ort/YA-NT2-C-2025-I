@@ -11,7 +11,7 @@ const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
   return (
-    <VehiculosProvider>
+    // <VehiculosProvider>
       <Stack.Navigator initialRouteName={"ListadoVehiculos"}>
         <Stack.Screen
           name="ListadoVehiculos"
@@ -36,7 +36,7 @@ const StackNavigation = () => {
           }}
         />
       </Stack.Navigator>
-    </VehiculosProvider>
+    // </VehiculosProvider>
 
 
   )

@@ -1,6 +1,8 @@
 const MAX_VEHICULOS = 20;
 const DEFAULT_URL_IMAGEN = 'https://img.freepik.com/vector-gratis/modern-urban-adventure-suv-vehicle-illustration_1344-200.jpg';
 
+const URL_API = 'https://us-central1-api-nt2-ejemplo.cloudfunctions.net/app/api';
+
 const marcas = ['Toyota', 'Ford', 'Chevrolet'];
 
 const modelos = {
@@ -41,49 +43,89 @@ const vehiculos = Array.from({ length: MAX_VEHICULOS }, generarVehiculo).map((ve
 
 const getVehiculos = () => {
   // Simular una llamada a una API
-
-
-
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("vehiculos", vehiculos);
-      resolve(
-        vehiculos
-      );
-    }, 1000);
+    const response = fetch(`${URL_API}/read`)
+    response.then(response => {
+      //console.log("response", response);
+      return response.json();
+    }).then(data => {
+      //console.log("data", data);
+      resolve(data);
+    })
+    .catch(error =>{
+      console.log("error", error);
+      reject(error);
+    })   
   });
+
+
+  // return new Promise((resolve, reject) => {
+  //   setTimeout(() => {
+  //     //console.log("vehiculos", vehiculos);
+  //     resolve(
+  //       vehiculos
+  //     );
+  //   }, 1000);
+  // });
 }
 
 const getVehiculoById = (id) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const vehiculo = vehiculos.find(vehiculo => vehiculo.id === id);
-      resolve(vehiculo);
-    }, 1000);
+    fetch(`${URL_API}/read/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      resolve(data);
+    })
+    .catch(error => {
+      console.log("error al obtener vehiculo por id", error);
+      reject(error);
+    })
   });
 }
 
 const updateVehiculo = (vehiculo) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      //TODO: Revisar el metodo de actualizacion porque NO lo esta realizando correctamente.
-      const index = vehiculos.findIndex(v => v.id === vehiculo.id);
-      vehiculos[index] = vehiculo;
-      
-      resolve(vehiculo);
-    }, 1000); 
+    fetch(`${URL_API}/update/${vehiculo.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify(vehiculo)
+    })
+    .then(response => {
+      console.log("response", response);
+      if(response.ok){
+        resolve(true);
+      }else{
+        reject(new Error("Error al actualizar vehiculo"));
+      }
+    })
+    .catch(error => {
+      console.log("error al actualizar vehiculo", error);
+      reject(error);
+    })
   });
 }
 
 const saveVehiculo = (vehiculo) => {
-
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const newVehiculo = { ...vehiculo, id: vehiculos.length + 1 };
-      vehiculos.push(newVehiculo);
-      resolve(newVehiculo);
-    }, 1000);
-  });
+    fetch(`${URL_API}/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(vehiculo)
+    })
+    .then(response => response.json())
+    .then(data => {
+      resolve(data);
+    })
+    .catch(error => {
+      console.log("error al guardar vehiculo", error);
+      reject(error);
+    })
+  })
 }
 
 
