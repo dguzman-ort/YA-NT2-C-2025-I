@@ -1,3 +1,5 @@
+const AUTH_KEY = '@auth_data';
+
 const login = (email, password) => {
   return new Promise((resolve, reject) => {
     // TODO: Llamar a la API de login cuando la tengan implementada.
@@ -27,5 +29,6 @@ const login = (email, password) => {
 }
 
 export default {
-  login
+  login,
+  AUTH_KEY
 }

@@ -3,11 +3,15 @@ import { Input } from '@rneui/themed';
 import { DEFAULT_URL_IMAGEN, saveVehiculo, updateVehiculo, getVehiculoById } from '../services/vehiculos';
 import { useState, useEffect } from "react";
 import { useNavigation, useRoute } from '@react-navigation/native';
+// import { useAuth } from '../hooks/useAuth';
 
 export default () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params || {};
+  // const { auth } = useAuth();
+  // console.log("auth", auth);
+
   //console.log("id", id);
 
   const [vehiculo, setVehiculo] = useState({
@@ -78,6 +82,7 @@ export default () => {
 
     <View style={[styles.container, styles.form]}>
       <Text style={styles.titleContainer}>Formulario de Vehiculo</Text>      
+      {/* <View><Text>Hola, {auth.user.fullName}</Text></View> */}
         <Input
           placeholder="Marca"
           style={styles.input}

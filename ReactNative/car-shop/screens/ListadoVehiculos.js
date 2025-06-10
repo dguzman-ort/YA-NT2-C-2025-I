@@ -10,11 +10,11 @@ import { useAuth } from '../hooks/useAuth';
 
 export default function ListadoVehiculos() {
   // const { vehiculos } = useVehiculos();
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [vehiculos, setVehiculos] = useState([]);
 
   useFocusEffect(useCallback(() => {
-    getVehiculos().then((vehiculos) => {
+    getVehiculos(auth.access_token).then((vehiculos) => {
       setVehiculos(vehiculos);
     })
   }, []));

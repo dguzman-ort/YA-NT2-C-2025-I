@@ -41,10 +41,14 @@ const vehiculos = Array.from({ length: MAX_VEHICULOS }, generarVehiculo).map((ve
   id: index
 }))
 
-const getVehiculos = () => {
+const getVehiculos = (token) => {
   // Simular una llamada a una API
   return new Promise((resolve, reject) => {
-    const response = fetch(`${URL_API}/read`)
+    const response = fetch(`${URL_API}/read`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
     response.then(response => {
       //console.log("response", response);
       return response.json();
@@ -69,9 +73,13 @@ const getVehiculos = () => {
   // });
 }
 
-const getVehiculoById = (id) => {
+const getVehiculoById = (id, token) => {
   return new Promise((resolve, reject) => {
-    fetch(`${URL_API}/read/${id}`)
+    fetch(`${URL_API}/read/${id}`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
     .then(response => response.json())
     .then(data => {
       resolve(data);
@@ -83,13 +91,13 @@ const getVehiculoById = (id) => {
   });
 }
 
-const updateVehiculo = (vehiculo) => {
+const updateVehiculo = (vehiculo, token) => {
   return new Promise((resolve, reject) => {
     fetch(`${URL_API}/update/${vehiculo.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify(vehiculo)
     })
@@ -108,12 +116,13 @@ const updateVehiculo = (vehiculo) => {
   });
 }
 
-const saveVehiculo = (vehiculo) => {
+const saveVehiculo = (vehiculo, token) => {
   return new Promise((resolve, reject) => {
     fetch(`${URL_API}/create`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
       },
       body: JSON.stringify(vehiculo)
     })

@@ -7,12 +7,20 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import RegistroLoginScreen from './screens/RegistroLoginScreen';
 
+import Constants from 'expo-constants';
+
 
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
   const { auth } = useAuth();
-  console.log('auth', auth);
+
+  const isWeb = !Constants.platform;
+  const isAndroid = !!Constants.platform?.android;
+  const isIOS = !!Constants.platform?.ios;
+  console.log('isWeb', isWeb);
+  console.log('isAndroid', isAndroid);
+  console.log('isIOS', isIOS);
   return (
     <Stack.Navigator>
 
