@@ -30,5 +30,6 @@ Para iniciar el proyecto vamos crearnos una cuenta en github. A continuacion la 
 - Tomas Amendolara, tamendobt
 - Luis Augusto Choque Mamani, luisChoque94
 - Julian Gonzalez Chiquirrin, juliangch
+- Ivan Liscovsky, ivaOniria
 - Ivan Schutt - ivan-schutt
 - Matias Leonel Sanchez, matywastaken
