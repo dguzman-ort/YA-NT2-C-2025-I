@@ -1,4 +1,4 @@
-# BE-NT2-C-2024-I
+# YA-NT2-C-2025-I
 
 Repositorio de la clase de NT2 C para la clase 2025-I
 
@@ -23,4 +23,12 @@ Para iniciar el proyecto vamos crearnos una cuenta en github. A continuacion la 
 # Listado de participantes
 
 - Daniel Guzman, dguzman-ort
-- Martin Palma,  martinspalma
+- Axel Julián Dumas Cutuli, Hareyuk
+- Andrea Massun Sovic, PrintAndrea
+- Martin Palma Sabino, Martinspalma
+- Alejo Huerga, Alejo134
+- Tomas Amendolara, tamendobt
+- Luis Augusto Choque Mamani, luisChoque94
+- Julian Gonzalez Chiquirrin, juliangch
+- Ivan Schutt - ivan-schutt
+- Matias Leonel Sanchez, matywastaken
